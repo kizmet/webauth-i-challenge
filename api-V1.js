@@ -1,7 +1,9 @@
 "use strict";
 const { transaction } = require("objection");
 const User = require("./models/User");
+const Sessions = require("./models/Sessions");
 const bcrypt = require("bcryptjs");
+const RestrictedSession = require("./auth/restricted-session");
 
 module.exports = router => {
 	router.post("/api/register", async (req, res) => {
@@ -45,6 +47,7 @@ module.exports = router => {
 
 	//uses middleware function restricted in api.js
 	router.get("/users", restricted, (req, res) => {
+		console.log(req.session);
 		const getusers = async () => {
 			const users = await transaction(User.knex(), trx => {
 				return User.query(trx);
@@ -56,9 +59,17 @@ module.exports = router => {
 
 	//uses global middleware from app.js
 	router.get("/api/restricted/users", async (req, res) => {
+		console.log(req.session);
 		const users = await User.query();
-
 		res.send(users);
+	});
+
+	router.get("/api/restrictedSession/users", async (req, res) => {
+		// console.log(req);
+		const users = await User.query();
+		const sessions = await Sessions.query();
+		res.send(users);
+		console.table(sessions);
 	});
 };
 
