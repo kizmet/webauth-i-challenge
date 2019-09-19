@@ -7,7 +7,6 @@ const RestrictedSession = require("../auth/restricted-session");
 
 module.exports = router => {
 	router.get("/users", RestrictedSession, (req, res) => {
-		console.log(req.session);
 		const getusers = async () => {
 			const users = await transaction(User.knex(), trx => {
 				return User.query(trx);
@@ -23,4 +22,3 @@ function createStatusCodeError(statusCode) {
 		statusCode
 	});
 }
-

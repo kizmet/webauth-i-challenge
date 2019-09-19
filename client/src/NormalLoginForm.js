@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./App.css";
 
 const req = axios.create({
@@ -19,10 +20,11 @@ class NormalLoginForm extends React.Component {
   };
 
   axiosPost = async values => {
-    await req.post("api/login", {
+    const post = await req.post("api/login", {
       username: values.username,
       password: values.password
     });
+    console.log(post);
   };
 
   render() {
@@ -65,7 +67,8 @@ class NormalLoginForm extends React.Component {
           >
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          Or <Link to="/register">register now!</Link>
+          Or <Link to="/allUsers">all users now!</Link>
         </Form.Item>
       </Form>
     );

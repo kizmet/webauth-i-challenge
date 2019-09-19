@@ -47,7 +47,7 @@ module.exports = router => {
 					user.password
 				);
 				if (passwordCheck) {
-					res.json({ user: user, pc: passwordCheck });
+					res.status(200).json({ cookie: req.session });
 				} else {
 					res.status(401).json({ message: "Invalid password" });
 				}

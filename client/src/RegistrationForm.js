@@ -1,19 +1,7 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Tooltip,
-  Icon,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
-  Button,
-  AutoComplete
-} from "antd";
+import { Form, Input, Select, Button } from "antd";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 const { Option } = Select;
 
 const req = axios.create({
@@ -143,6 +131,7 @@ class RegistrationForm extends React.Component {
           <Button type="primary" htmlType="submit">
             Register
           </Button>
+          Or <Link to="/">login now!</Link>
         </Form.Item>
       </Form>
     );

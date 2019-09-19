@@ -47,7 +47,18 @@ const router = promiseRouter();
 const restrictedRouter = promiseRouter();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: (origin, callback) => {
+      callback(null, true);
+    }
+    // process.env.NODE_ENV === "production"
+    //   ? "http:test-website.netlify.com"
+    //   : 'http:localhost:3000'
+  })
+);
+//app.use(cors());
 app.use(session(sessionConfig));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
